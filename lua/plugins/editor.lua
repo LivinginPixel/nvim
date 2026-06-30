@@ -37,20 +37,20 @@ return {
 		"kylechui/nvim-surround",
 		version = "*",
 		event = "BufReadPost",
-		opts = {
-			keymaps = {
-				insert = "<C-g>s",
-				insert_line = "<C-g>S",
-				normal = "ys",
-				normal_cur = "yss",
-				normal_line = "yS",
-				normal_cur_line = "ySS",
-				visual = "S",
-				visual_line = "gS",
-				delete = "ds",
-				change = "cs",
-			},
+		-- v4: keymaps declared as keys specs, not via setup()
+		keys = {
+			{ "<C-g>s", mode = "i",          desc = "Surround: insert" },
+			{ "<C-g>S", mode = "i",          desc = "Surround: insert line" },
+			{ "ys",     mode = "n",          desc = "Surround: add" },
+			{ "yss",    mode = "n",          desc = "Surround: add line" },
+			{ "yS",     mode = "n",          desc = "Surround: add line (whole)" },
+			{ "ySS",    mode = "n",          desc = "Surround: add line cur" },
+			{ "S",      mode = "v",          desc = "Surround: visual" },
+			{ "gS",     mode = "v",          desc = "Surround: visual line" },
+			{ "ds",     mode = "n",          desc = "Surround: delete" },
+			{ "cs",     mode = "n",          desc = "Surround: change" },
 		},
+		opts = {},
 	},
 
 	-- ⚡ Autopairs like a beast + Treesitter-aware
