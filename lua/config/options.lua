@@ -5,24 +5,51 @@ local opt = vim.opt
 
 -- UI
 opt.guifont = "Cartograph CF:h13"
-opt.number = true -- Show line numbers
-opt.relativenumber = true -- Show relative line numbers
-opt.cursorline = true -- Highlight current line
-opt.signcolumn = "yes" -- Always show the signcolumn
-opt.termguicolors = true -- True color support
-opt.showmode = false -- Don't show mode since we have a statusline
-opt.conceallevel = 2 -- Hide * markup for bold and italic
-opt.list = true -- Show some invisible characters
+opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
+opt.signcolumn = "yes"
+opt.termguicolors = true
+opt.showmode = false
+opt.conceallevel = 2
+opt.list = true
 vim.opt.listchars = "tab:» ,trail:·,nbsp:␣"
-opt.pumblend = 0 -- Popup blend (0 for fully opaque)
-opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.scrolloff = 8 -- Lines of context
-opt.sidescrolloff = 8 -- Columns of context
-opt.splitbelow = true -- Put new windows below current
-opt.splitright = true -- Put new windows right of current
-opt.winblend = 0 -- Window blend (0 for fully opaque)
-opt.cmdheight = 1
-opt.shortmess:append("c") -- don't show completion messages in cmdline
+opt.pumblend = 0
+opt.pumheight = 10
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.splitbelow = true
+opt.splitright = true
+opt.winblend = 0
+opt.cmdheight = 0      -- hide cmdline when not in use (noice handles display)
+opt.shortmess:append("c")
+opt.shortmess:append("S") -- suppress search count, noice shows it
+
+-- Fill characters: clean box-drawing at split corners, no ~ at end of buffer
+opt.fillchars = {
+	horiz      = "─",
+	horizup    = "┴",
+	horizdown  = "┬",
+	vert       = "│",
+	vertleft   = "┤",
+	vertright  = "├",
+	verthoriz  = "┼",
+	eob        = " ",  -- hide end-of-buffer tilde
+	fold       = " ",
+	foldopen   = "▾",
+	foldclose  = "▸",
+	foldsep    = " ",
+	diff       = "╱",
+}
+
+-- Neovide: zero padding so the editor fills the window edge to edge
+if vim.g.neovide then
+	vim.g.neovide_padding_top    = 0
+	vim.g.neovide_padding_bottom = 0
+	vim.g.neovide_padding_right  = 0
+	vim.g.neovide_padding_left   = 0
+	vim.g.neovide_window_blurred = false
+end
 
 -- Behavior
 opt.clipboard = "unnamedplus" -- Sync with system clipboard

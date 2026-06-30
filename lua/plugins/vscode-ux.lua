@@ -13,35 +13,36 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		opts = {
-			attach_navic = true,
-			show_dirname = false,
-			show_basename = true,
-			show_modified = true,
+			attach_navic       = true,
+			show_dirname       = false,
+			show_basename      = true,
+			show_modified      = true,
 			modified_indicator = "●",
-			ellipsis = "…",
-			separator = "  ",
+			ellipsis           = "…",
+			separator          = "  ",
+			-- catppuccin mocha palette
 			theme = {
-				normal        = { bg = "#141414", fg = "#7b7c7e" },
-				ellipsis      = { fg = "#525253" },
-				separator     = { fg = "#525253" },
-				modified      = { fg = "#ff91c1" },
-				dirname       = { fg = "#7b7c7e" },
-				basename      = { fg = "#f2f4f8", bold = true },
-				context_file          = { fg = "#33b1ff" },
-				context_module        = { fg = "#c8a5ff", italic = true },
-				context_namespace     = { fg = "#c8a5ff", italic = true },
-				context_package       = { fg = "#5ae0df" },
-				context_class         = { fg = "#08bdba", bold = true },
-				context_method        = { fg = "#00b4cc" },
-				context_property      = { fg = "#8cb6ff" },
-				context_field         = { fg = "#8cb6ff" },
-				context_constructor   = { fg = "#3ddbd9" },
-				context_enum          = { fg = "#5ae0df" },
-				context_interface     = { fg = "#08bdba" },
-				context_function      = { fg = "#00b4cc" },
-				context_variable      = { fg = "#c8d3f5" },
-				context_constant      = { fg = "#ff91c1" },
-				context_type_parameter= { fg = "#78dcca" },
+				normal       = { bg = "#1e1e2e", fg = "#6c7086" },
+				ellipsis     = { fg = "#45475a" },
+				separator    = { fg = "#45475a" },
+				modified     = { fg = "#f9e2af" },
+				dirname      = { fg = "#6c7086" },
+				basename     = { fg = "#cdd6f4", bold = true },
+				context_file             = { fg = "#89b4fa" },
+				context_module           = { fg = "#cba6f7", italic = true },
+				context_namespace        = { fg = "#cba6f7", italic = true },
+				context_package          = { fg = "#94e2d5" },
+				context_class            = { fg = "#f9e2af", bold = true },
+				context_method           = { fg = "#89b4fa" },
+				context_property         = { fg = "#94e2d5" },
+				context_field            = { fg = "#94e2d5" },
+				context_constructor      = { fg = "#74c7ec" },
+				context_enum             = { fg = "#a6e3a1" },
+				context_interface        = { fg = "#89dceb" },
+				context_function         = { fg = "#89b4fa" },
+				context_variable         = { fg = "#cdd6f4" },
+				context_constant         = { fg = "#fab387" },
+				context_type_parameter   = { fg = "#74c7ec" },
 			},
 		},
 	},
@@ -93,8 +94,7 @@ return {
 				border = { enable = true, top_char = "─", bottom_char = "─" },
 				theme  = { enable = true, mode = "darken" },
 				hooks  = {
-					before_open = function(results, open, jump, method)
-						-- jump directly if there's only one result
+					before_open = function(results, open, jump, _)
 						if #results == 1 then
 							jump(results[1])
 						else
@@ -103,14 +103,25 @@ return {
 					end,
 				},
 			})
-			-- tint glance windows to noctis palette
+			-- catppuccin mocha palette
 			local hl = function(g, v) vim.api.nvim_set_hl(0, g, v) end
-			hl("GlanceWinBarTitle",     { fg = "#33b1ff", bold = true, bg = "#1a1a1a" })
-			hl("GlanceWinBarFilename",  { fg = "#f2f4f8", bg = "#1a1a1a" })
-			hl("GlancePreviewNormal",   { bg = "#141414" })
-			hl("GlanceListNormal",      { bg = "#0c0c0c" })
-			hl("GlanceBorderTop",       { fg = "#33b1ff" })
-			hl("GlanceListBorderBottom",{ fg = "#33b1ff" })
+			hl("GlanceWinBarTitle",      { fg = "#89b4fa", bold = true, bg = "#181825" })
+			hl("GlanceWinBarFilename",   { fg = "#cdd6f4", bg = "#181825" })
+			hl("GlancePreviewNormal",    { bg = "#1e1e2e" })
+			hl("GlanceListNormal",       { bg = "#181825" })
+			hl("GlanceBorderTop",        { fg = "#89b4fa" })
+			hl("GlanceListBorderBottom", { fg = "#89b4fa" })
+
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				callback = function()
+					hl("GlanceWinBarTitle",      { fg = "#89b4fa", bold = true, bg = "#181825" })
+					hl("GlanceWinBarFilename",   { fg = "#cdd6f4", bg = "#181825" })
+					hl("GlancePreviewNormal",    { bg = "#1e1e2e" })
+					hl("GlanceListNormal",       { bg = "#181825" })
+					hl("GlanceBorderTop",        { fg = "#89b4fa" })
+					hl("GlanceListBorderBottom", { fg = "#89b4fa" })
+				end,
+			})
 		end,
 	},
 }

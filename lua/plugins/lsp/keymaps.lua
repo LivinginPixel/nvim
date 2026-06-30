@@ -86,14 +86,6 @@ function M.on_attach(client, buffer)
 		vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
 	end, { desc = "Prev Warning" })
 
-	-- Formatting
-	self:map("<leader>cf", function()
-		vim.lsp.buf.format({ async = true })
-	end, { desc = "Format Document" })
-	self:map("<leader>cf", function()
-		vim.lsp.buf.format({ async = false })
-	end, { desc = "Format Range", mode = "v" })
-
 	-- Workspace
 	self:map("<leader>wa", function()
 		vim.lsp.buf.add_workspace_folder()

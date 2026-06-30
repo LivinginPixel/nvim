@@ -105,10 +105,6 @@ return {
 			local telescope = require("telescope")
 			telescope.setup(opts)
 			telescope.load_extension("fzf")
-
-			-- Set transparent background for telescope
-			vim.api.nvim_set_hl(0, "TelescopeNormal", { bg = "NONE" })
-			vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "NONE" })
 		end,
 	},
 }

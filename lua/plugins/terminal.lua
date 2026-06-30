@@ -15,30 +15,28 @@ return {
 		opts = {
 			size = function(term)
 				if term.direction == "horizontal" then
-					return 15
+					return math.floor(vim.o.lines * 0.35)
 				elseif term.direction == "vertical" then
-					return vim.o.columns * 0.4
-				elseif term.direction == "tab" then
-					return vim.o.lines - 5
+					return math.floor(vim.o.columns * 0.42)
 				end
 			end,
 			open_mapping = [[<C-`>]],
 			hide_numbers = true,
-			shade_filetypes = {},
 			shade_terminals = false,
-			shading_factor = 0,
 			start_in_insert = true,
 			insert_mappings = true,
 			persist_size = true,
 			persist_mode = true,
 			direction = "float",
-			close_on_exit = false,
+			close_on_exit = true,
 			shell = vim.o.shell,
 			float_opts = {
-				border = "curved",
+				border   = "rounded",
+				width    = math.floor(vim.o.columns * 0.88),
+				height   = math.floor(vim.o.lines   * 0.82),
 				winblend = 0,
 				highlights = {
-					border = "FloatBorder",
+					border     = "FloatBorder",
 					background = "Normal",
 				},
 			},
@@ -46,19 +44,23 @@ return {
 		config = function(_, opts)
 			require("toggleterm").setup(opts)
 
-			-- Set transparent background for toggleterm
-			vim.api.nvim_set_hl(0, "ToggleTerm", { bg = "NONE" })
-			vim.api.nvim_set_hl(0, "ToggleTermBorder", { bg = "NONE" })
+			local map = function(mode, lhs, rhs)
+				vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true })
+			end
 
-			-- Terminal navigation keymaps
-			vim.api.nvim_set_keymap('t', '<C-h>', [[<C-\><C-N><C-w>h]], { noremap = true, silent = true })
-			vim.api.nvim_set_keymap('t', '<C-j>', [[<C-\><C-N><C-w>j]], { noremap = true, silent = true })
-			vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-N><C-w>k]], { noremap = true, silent = true })
-			vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-N><C-w>l]], { noremap = true, silent = true })
+			-- Exit terminal mode with Esc (back to normal mode in the buffer)
+			map("t", "<Esc>",   [[<C-\><C-N>]])
+			-- Re-send actual Esc to the running program with Ctrl-Esc
+			map("t", "<C-Esc>", [[<Esc>]])
 
-			-- Clipboard integration (yank/paste)
-			vim.api.nvim_set_keymap('t', '<C-S-v>', [[<C-\><C-N>"+pi]], { noremap = true, silent = true })
-			vim.api.nvim_set_keymap('t', '<C-S-y>', [[<C-\\><C-N>"+yiw]], { noremap = true, silent = true })
+			-- Window navigation from terminal mode
+			map("t", "<C-h>", [[<C-\><C-N><C-w>h]])
+			map("t", "<C-j>", [[<C-\><C-N><C-w>j]])
+			map("t", "<C-k>", [[<C-\><C-N><C-w>k]])
+			map("t", "<C-l>", [[<C-\><C-N><C-w>l]])
+
+			-- Paste from system clipboard inside terminal
+			map("t", "<C-S-v>", [[<C-\><C-N>"+pi]])
 		end,
 		-- Optionally, add more terminal plugins or utilities here
 		}

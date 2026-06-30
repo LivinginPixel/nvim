@@ -18,7 +18,7 @@ return {
 			local Util = require("utils")
 
 			-- setup autoformat
-			Util.format.register(Util.lsp.formatter())
+			Util.format.register(Util.format.formatter())
 
 			-- setup keymaps
 			Util.lsp.on_attach(function(client, buffer)
@@ -117,8 +117,9 @@ return {
 				jsonls = {},
 				yamlls = {},
 				marksman = {},
-				tailwindcss = {},
-				clangd = {},
+				tailwindcss    = {},
+				clangd         = {},
+				rust_analyzer  = {},
 			}
 
 			-- apply per-server configs via vim.lsp.config (Neovim 0.11+)

@@ -197,29 +197,4 @@ function M.format.register(formatter)
 	})
 end
 
-function M.lsp.formatter()
-	return {
-		name = "LSP",
-		primary = true,
-		priority = 1,
-		format = function(buf)
-			vim.lsp.buf.format({
-				bufnr = buf,
-				filter = function(client)
-					return client.name ~= "ts_ls"
-				end,
-			})
-		end,
-		sources = function(buf)
-			local ret = {}
-			for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
-				if client.supports_method("textDocument/formatting") then
-					ret[#ret + 1] = client.name
-				end
-			end
-			return ret
-		end,
-	}
-end
-
 return M

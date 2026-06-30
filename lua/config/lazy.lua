@@ -17,18 +17,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
 	spec = {
-		-- Import plugins
 		{ import = "plugins" },
-
-		-- Copilot integration with nvim-cmp
-		{
-			"zbirenbaum/copilot-cmp",
-			event = "InsertEnter",
-			dependencies = { "zbirenbaum/copilot.lua", "hrsh7th/nvim-cmp" },
-			config = function()
-				require("copilot_cmp").setup()
-			end,
-		},
 	},
 
 	defaults = {
@@ -36,7 +25,7 @@ require("lazy").setup({
 		version = "*", -- To Always use the latest stable version
 	},
 
-	install = { colorscheme = { "noctis" } },
+	install = { colorscheme = { "catppuccin", "habamax" } },
 
 	checker = {
 		enabled = true, -- Automatically check for plugin updates
